@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Megha Sales</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            background: rgba(49, 191, 179, 0.99);
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .payment-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        input, select {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 1rem 3rem;
+            background: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #333;
+            transform: scale(1.05);
+        }
+
+        .summary {
+            margin-bottom: 1.5rem;
+        }
+
+        .summary p {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h1>Complete Your Payment</h1>
+
+        <div class="summary">
+            <h3>Order Summary</h3>
+            <p><strong>Total Items:</strong> <span id="totalItems">0</span></p>
+            <p><strong>Total Amount:</strong> ₹<span id="totalAmount">0</span></p>
+        </div>
+
+        <form id="paymentForm">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email Address" required>
+            <input type="text" placeholder="Address" required>
+            <select required>
+                <option value="" disabled selected>Select Payment Method</option>
+                <option value="card">Credit/Debit Card</option>
+                <option value="upi">UPI</option>
+                <option value="cod">Cash on Delivery</option>
+            </select>
+            <button type="submit">Complete Payment</button>
+        </form>
+    </div>
+
+    <script>
+        // Fetch cart data from localStorage
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Calculate total items and total amount
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const totalAmount = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
+
+        // Update the order summary
+        document.getElementById('totalItems').textContent = totalItems;
+        document.getElementById('totalAmount').textContent = totalAmount.toLocaleString();
+
+        // Handle form submission
+        const paymentForm = document.getElementById('paymentForm');
+        paymentForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent default form submission
+
+            alert('Payment Successful! Thank you for shopping with Megha Sales.');
+            localStorage.clear(); // Clear the cart from localStorage
+            window.location.href = 'index.php'; // Redirect to the landing page
+        });
+    </script>
+</body>
+</html>
